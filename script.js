@@ -1,3 +1,4 @@
+//function that random pick rock, paper or scissors 
 function getComputerChoice() {
 const ComputerOptions = ["rock" , "paper" , "scissors"];
 let ComputerChoice = ComputerOptions[Math.floor(Math.random()*3)];
@@ -6,51 +7,90 @@ return ComputerChoice; }
 let PlayerScore = 0;
 let ComputerScore = 0; 
 
-function round() {
-    let ComputerSelection = getComputerChoice();
-    let PlayerSelection = prompt("Type your option: rock, paper or scissors").toLowerCase();
-    
-    console.log("Player choice is: "+PlayerSelection);
-    console.log("Computer choice is: "+ComputerSelection);
 
+//assign variables to html
+const buttons = document.querySelectorAll("button");
+const result = document.querySelector("#result");
+
+//creating five paragraph 
+const playerLine = document.createElement("p");
+result.appendChild(playerLine);
+
+const computerLine = document.createElement("p");
+result.appendChild(computerLine);
+
+const gameLine = document.createElement("p");
+result.appendChild(gameLine);
+
+const gamePoints = document.createElement("p");
+result.appendChild(gamePoints);
+
+const endLine = document.createElement("p");
+result.appendChild(endLine);
+
+//function that clear round and set player and computer points to 0
+function resetFunction() {
+    gameLine.textContent = '';
+    playerLine.textContent = '';
+    computerLine.textContent = '';
+    gamePoints.textContent = '';
+    PlayerScore = 0;
+    ComputerScore = 0; }
+
+    //adding click event on button
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            PlayerSelection = button.value;
+        
+    //assigning random pick (R,P or S) to ComputerSelection
+    let ComputerSelection = getComputerChoice();
+    
+    //display player selection
+    playerLine.textContent = "Player choice is: "+PlayerSelection;
+    
+    //display computer selection
+    computerLine.textContent = "Computer choice is: "+ComputerSelection;
+
+    //checking conditionals of rounds and displaying round result and current points
     if(PlayerSelection == ComputerSelection) {
-        console.log("It's a draw!");
-        console.log("Player: "+ (PlayerScore+=0) +", Computer: "+ (ComputerScore+=0)); }
+        gameLine.textContent = "It's a draw!";
+        gamePoints.textContent = "Player: "+ (PlayerScore+=0) +", Computer: "+ (ComputerScore+=0); }
 
     else if(PlayerSelection == "paper" && ComputerSelection == "rock") {
-        console.log("Player Wins!");
-        console.log("Player: "+ (PlayerScore+=1) +", Computer: "+(ComputerScore+=0)); }
+        gameLine.textContent = "Player Wins!";
+        gamePoints.textContent = "Player: "+ (PlayerScore+=1) +", Computer: "+(ComputerScore+=0); }
 
     else if(PlayerSelection == "rock" && ComputerSelection == "scissors") {
-        console.log("Player Wins!");
-        console.log("Player: "+ (PlayerScore+=1) +", Computer: "+(ComputerScore+=0)); }
+        gameLine.textContent = "Player Wins!";
+        gamePoints.textContent = "Player: "+ (PlayerScore+=1) +", Computer: "+(ComputerScore+=0); }
 
     else if(PlayerSelection == "scissors" && ComputerSelection == "paper") {
-        console.log("Player Wins!");
-        console.log("Player: "+ (PlayerScore+=1) +", Computer: "+(ComputerScore+=0)); }
+        gameLine.textContent = "Player Wins!";
+        gamePoints.textContent = "Player: "+ (PlayerScore+=1) +", Computer: "+(ComputerScore+=0); }
 
     else if(PlayerSelection == "paper" && ComputerSelection == "scissors") {
-        console.log("Computer Wins!");
-        console.log("Player: "+ (PlayerScore+=0) +", Computer: "+(ComputerScore+=1)); }
+        gameLine.textContent = "Computer Wins!";
+        gamePoints.textContent = "Player: "+ (PlayerScore+=0) +", Computer: "+(ComputerScore+=1); }
 
     else if(PlayerSelection == "rock" && ComputerSelection == "paper") {
-        console.log("Computer Wins!"); 
-        console.log("Player: "+ (PlayerScore+=0) +", Computer: "+(ComputerScore+=1)); }
+        gameLine.textContent = "Computer Wins!"; 
+        gamePoints.textContent = "Player: "+ (PlayerScore+=0) +", Computer: "+(ComputerScore+=1); }
 
     else if(PlayerSelection == "scissors" && ComputerSelection == "rock") {
-        console.log("Computer Wins!"); 
-        console.log("Player: "+ (PlayerScore+=0) +", Computer: "+(ComputerScore+=1)); }
+        gameLine.textContent = "Computer Wins!"; 
+        gamePoints.textContent = "Player: "+ (PlayerScore+=0) +", Computer: "+(ComputerScore+=1); }
 
-    else { console.log("Choose the right option"); } }
+    else { gameLine.textContent = "Choose the right option"; } 
 
-function Game(){
-    for(let i=0; i<Infinity; i++)
-    {  round();
-    console.log(" ");
+    //conditional that ends round when someone get 5 points
     if(PlayerScore == 5) {
-        console.log("Congrats, You WIN!") }
+        endLine.textContent = "Congrats, You WIN!";
+        resetFunction(); }
     else if(ComputerScore == 5) {
-        console.log("Game over, Computer WINS!") }
-    else { console.log(" ") } } }
+        endLine.textContent = "Game over, Computer WINS!";
+        resetFunction(); }
+    else { endLine.textContent = " " } ;
 
-Game();
+})}); 
+
+
